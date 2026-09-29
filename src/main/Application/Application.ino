@@ -27,6 +27,7 @@ using namespace std;
 #define EEPROMSeedIndex 16
 
 #define SecondsToMs 1000
+#define releaseDurationMillis 500
 
 // Vars
 int delaySeconds;
@@ -50,6 +51,9 @@ void setup() {
     pinMode(uselessMachineMosfet, OUTPUT);
     digitalWriteFast(uselessMachineMosfet, HIGH);
 
+    digitalWrite(solenoidHigh, LOW);
+    digitalWrite(speakerMosfet, LOW);
+
     pinMode(baseDelayMiddlePin, INPUT);
     pinMode(delayVariationMiddlePin, INPUT);
     auto delayConfig = readDelayConfig();
@@ -61,5 +65,11 @@ void setup() {
 }
 
 void release(){
-    //TODO
+    digitalWrite(solenoidHigh, HIGH);
+    delay(releaseDurationMillis);
+    digitalWrite(solenoidHigh, LOW);
+
+    digitalWrite(speakerMosfet, HIGH);
+    //TODO: play sound
+    digitalWrite(speakerMosfet, LOW);
 }
