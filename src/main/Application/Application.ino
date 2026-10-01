@@ -6,12 +6,15 @@ using namespace std;
 
 /************** CONFIGURATION **************/
 // Pins
-#define baseDelayMiddlePin 1
-#define delayVariationMiddlePin 2
+#define uselessMachineMosfet 1
 
-#define uselessMachineMosfet 3
-#define speakerMosfet 4
-#define solenoidHigh 5
+#define baseDelayMiddlePin 2
+#define delayVariationMiddlePin 3
+#define potentMosfet 4
+
+#define solenoidMosfet 5
+#define speakerMosfet 6
+#define speakerHigh 7
 
 // Potentiometer Ranges
 #define minDelaySeconds 15 * 60
@@ -27,15 +30,20 @@ using namespace std;
 #define EEPROMSeedIndex 16
 
 #define SecondsToMs 1000
-#define releaseDurationMillis 500
+
+#define releaseDurationMillis 1000
+#define soundDurationMillis 10 * 1000
+#define soundFrequency 440
 
 // Vars
 int delaySeconds;
 
-inline getVoltage(int pin){return map(analogRead(pin), 0, 1024, 0, 5);}
+inline int getVoltage(int pin){return map(analogRead(pin), 0, 1024, 0, 5);}
 inline pair<int,int> readDelayConfig(){
+    digitalWrite(potentMosfet, HIGH);
     int baseDelay = map(getVoltage(baseDelayMiddlePin), potentMinV, potentMaxV, minDelaySeconds, maxDelaySeconds);
     int delayVariability = map(getVoltage(delayVariationMiddlePin), potentMinV, potentMaxV, minDelayVariabilitySeconds, maxDelayVariabilitySeconds);
+    digitalWrite(potentMosfet, LOW);
     return pair<int,int>(baseDelay, delayVariability);
 }
 inline void loadSRand(){
@@ -51,8 +59,15 @@ void setup() {
     pinMode(uselessMachineMosfet, OUTPUT);
     digitalWriteFast(uselessMachineMosfet, HIGH);
 
-    digitalWrite(solenoidHigh, LOW);
+    pinMode(speakerMosfet, OUTPUT);
+    pinMode(speakerHigh, OUTPUT);
+    pinMode(solenoidMosfet, OUTPUT);
+    pinMode(potentMosfet, OUTPUT);
+
+    digitalWrite(potentMosfet, LOW);
+    digitalWrite(solenoidMosfet, LOW);
     digitalWrite(speakerMosfet, LOW);
+    digitalWrite(speakerHigh, LOW);
 
     pinMode(baseDelayMiddlePin, INPUT);
     pinMode(delayVariationMiddlePin, INPUT);
@@ -65,11 +80,17 @@ void setup() {
 }
 
 void release(){
-    digitalWrite(solenoidHigh, HIGH);
-    delay(releaseDurationMillis);
-    digitalWrite(solenoidHigh, LOW);
-
+    digitalWrite(solenoidMosfet, HIGH);
     digitalWrite(speakerMosfet, HIGH);
-    //TODO: play sound
+
+    tone(speakerHigh, soundFrequency);
+
+    delay(releaseDurationMillis);
+    digitalWrite(solenoidMosfet, LOW);
+
+    delay(max(soundDurationMillis - releaseDurationMillis, 0));
+    noTone(speakerHigh);
     digitalWrite(speakerMosfet, LOW);
 }
+
+void loop(){}
