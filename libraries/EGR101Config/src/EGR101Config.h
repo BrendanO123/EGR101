@@ -2,21 +2,22 @@ using namespace std;
 
 /************** CONFIGURATION **************/
 // Pins
-#define uselessMachineMosfet 1
+#define uselessMachineMosfet 13
+#define uselessMachineReleaseReadyLED 12 
 
-#define delayDialWiperPin 2
-#define delayPotentMosfet 3
+#define delayDialWiperPin A0
+#define delayPotentMosfet 6
 
 #define solenoidMosfet 4
 #define speakerMosfet 5
 #define speakerHigh 6
 
 // Potentiometer Ranges
-#define minDelaySeconds 1 * 60 * 60
-#define maxDelaySeconds 3 * 60 * 60
+#define minDelaySeconds 1
+#define maxDelaySeconds 10
 
 #define potentMinV 0
-#define potentMaxV 5
+#define potentMaxV 3.3
 
 #define SecondsToMs 1000
 
