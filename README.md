@@ -64,5 +64,4 @@ Only change the calibration voltages if you the minimum and maximum delay printe
 All though it is very much advised against changing you can also find the pin assignments in [`EGR101Lib.h`](src/main/EGR101Lib/EGR101Lib.h) if you end up altering the wiring of the circuit itself.
 
 ## Circuit schematic
-
-**Coming Soon &trade;.** (Not actually a legal trademark don't sue me)
+[![Circuit Diagram](Img/EGR101Cropped.png)](Schematic/EGR101.pdf)
