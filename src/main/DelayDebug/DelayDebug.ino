@@ -1,27 +1,8 @@
+#include <EGR101Lib.h>
+#include <Settings.h>
+
 // Libraries
 #include <Arduino.h>
-#define uselessMachineMosfet 13
-#define uselessMachineReleaseReadyLED 12
-
-#define delayDialWiperPin A0
-#define delayPotentMosfet 7
-
-#define solenoidMosfet 4
-#define speakerMosfet 5
-#define speakerHigh 6
-
-// Potentiometer Ranges
-#define minDelaySeconds 1
-#define maxDelaySeconds 10
-
-#define potentMinV 0.0
-#define potentMaxV 3.3
-
-#define SecondsToMs 1000
-
-#define releaseDurationMillis 1000
-#define soundDurationMillis 10 * 1000
-#define soundFrequency 440
 using namespace std;
 
 // Vars
@@ -34,7 +15,7 @@ inline double getVoltage(int pin) {
   return map(analogRead(pin), 0.0, 1024.0, 0.0, 5.0);
 }
 inline int readDelayConfig() {
-  return map(getVoltage(delayDialWiperPin), potentMinV, potentMaxV, minDelaySeconds, maxDelaySeconds);
+  return map(getVoltage(delayDialWiperPin), potentMinV, potentMaxV, minDelaySeconds, maxDelaySeconds) + 0.5;
 }
 void setup() {
   Serial.begin(9600);

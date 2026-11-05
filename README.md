@@ -1,0 +1,1 @@
+```cp -R "./EGR101Lib" "<Replace_With_Path_To_Arduino_Folder>/Arduino/libraries"```
