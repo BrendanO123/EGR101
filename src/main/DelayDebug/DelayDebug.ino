@@ -1,5 +1,4 @@
 #include <EGR101Lib.h>
-#include <Settings.h>
 
 // Libraries
 #include <Arduino.h>
@@ -23,13 +22,11 @@ void setup() {
   pinMode(uselessMachineMosfet, OUTPUT);
   digitalWrite(uselessMachineMosfet, HIGH);
 
-  pinMode(speakerMosfet, OUTPUT);
   pinMode(speakerHigh, OUTPUT);
   pinMode(solenoidMosfet, OUTPUT);
   pinMode(delayPotentMosfet, OUTPUT);
 
   digitalWrite(solenoidMosfet, LOW);
-  digitalWrite(speakerMosfet, LOW);
   digitalWrite(speakerHigh, LOW);
 
   digitalWrite(delayPotentMosfet, HIGH);
